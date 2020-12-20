@@ -1,0 +1,28 @@
+sudo nano /lib/systemd/system/humidity-agent.service
+
+--------------
+
+[Unit]
+Description=Humidity data recording service
+After=multi-user.target
+Conflicts=getty@tty1.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python "/home/pi/home-automation/Humidity Sensor/Agent/agent.py"
+StandardInput=tty-force
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+---------------
+
+sudo systemctl daemon-reload
+
+sudo systemctl enable humidity-agent.service
+
+sudo systemctl start humidity-agent.service
+
+sudo systemctl status humidity-agent.service

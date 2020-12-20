@@ -20,7 +20,9 @@ def influxBody(measurements):
 
 	return json_body
 
-with open('config.json') as f:
+configFile = os.path.join(os.path.dirname(sys.argv[0]), 'config.json')
+
+with open(configFile) as f:
   config = json.load(f)
 
 ser = serial.Serial(config['usbDevice'], 115200)
