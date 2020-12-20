@@ -2,7 +2,7 @@ import serial
 import json
 from influxdb import InfluxDBClient
 from datetime import datetime
-import os
+import sys, os
 
 def influxBody(measurements):
 	json_body = []
