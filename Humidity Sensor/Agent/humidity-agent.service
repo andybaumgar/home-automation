@@ -1,0 +1,13 @@
+[Unit]
+Description=Humidity data recording service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python /home/pi/home-automation/Humidity\x20Sensor/Agent/agent.py
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=pi
+
+[Install]
+WantedBy=multi-user.target
