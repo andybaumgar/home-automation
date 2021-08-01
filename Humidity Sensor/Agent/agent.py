@@ -44,8 +44,8 @@ while 1 :
 		client.write_points(influxBody(data))
 
 		# mqtt_client.publish("apartment/temperature",data.temperature)
-		mqtt_client.publish("apartment/temperature",500)
-		mqtt_client.publish("apartment/humidity",data.humidity)
+		mqtt_client.publish("apartment/temperature",data["temperature"])
+		mqtt_client.publish("apartment/humidity",data["humidity"])
 
 	except Exception as e:
 		print(e)
