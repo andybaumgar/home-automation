@@ -3,6 +3,7 @@ import json
 from influxdb import InfluxDBClient
 from datetime import datetime
 import sys, os
+import paho.mqtt.client as mqtt #import the client1
 
 def influxBody(measurements):
 	json_body = []
@@ -30,12 +31,20 @@ ser = serial.Serial(config['usbDevice'], 115200)
 
 client = InfluxDBClient('localhost', 8086, 'admin', 'admin', 'apartment')
 
+broker_address="localhost" 
+#broker_address="iot.eclipse.org" #use external broker
+mqtt_client = mqtt.Client("P1") #create new instance
+mqtt_client.connect(broker_address) #connect to broker
+
 while 1 :
 	try:
 		serialData = ser.readline()
 		data = json.loads(ser.readline())
 
 		client.write_points(influxBody(data))
+
+		mqtt_client.publish("apartment/temperature",data.temperature)
+		mqtt_client.publish("apartment/humidity",data.humidity)
 
 	except Exception as e:
 		print(e)
