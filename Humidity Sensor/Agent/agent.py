@@ -4,6 +4,7 @@ from influxdb import InfluxDBClient
 from datetime import datetime
 import sys, os
 import paho.mqtt.client as mqtt #import the client1
+import config
 
 def influxBody(measurements):
 	json_body = []
@@ -22,19 +23,12 @@ def influxBody(measurements):
 
 	return json_body
 
-configFile = os.path.join(os.path.dirname(sys.argv[0]), 'config.json')
-
-with open(configFile) as f:
-  config = json.load(f)
-
-ser = serial.Serial(config['usbDevice'], 115200)
+ser = serial.Serial(config.usbDevice, 115200)
 
 client = InfluxDBClient('localhost', 8086, 'admin', 'admin', 'apartment')
 
-broker_address="localhost" 
-#broker_address="iot.eclipse.org" #use external broker
 mqtt_client = mqtt.Client("P1") #create new instance
-mqtt_client.connect(broker_address) #connect to broker
+mqtt_client.connect(config.broker_address) #connect to broker
 
 while 1 :
 	try:
