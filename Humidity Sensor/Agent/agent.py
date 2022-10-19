@@ -27,8 +27,8 @@ ser = serial.Serial(config.usbDevice, 115200)
 
 client = InfluxDBClient('localhost', 8086, 'admin', 'admin', 'apartment')
 
-mqtt_client = mqtt.Client("P1") #create new instance
-mqtt_client.connect(config.broker_address) #connect to broker
+# mqtt_client = mqtt.Client("P1") #create new instance
+# mqtt_client.connect(config.broker_address) #connect to broker
 
 while 1 :
 	try:
@@ -38,8 +38,8 @@ while 1 :
 		client.write_points(influxBody(data))
 
 		# mqtt_client.publish("apartment/temperature",data.temperature)
-		mqtt_client.publish("apartment/temperature",data["temperature"])
-		mqtt_client.publish("apartment/humidity",data["humidity"])
+		# mqtt_client.publish("apartment/temperature",data["temperature"])
+		# mqtt_client.publish("apartment/humidity",data["humidity"])
 
 	except Exception as e:
 		print(e)
