@@ -13,3 +13,8 @@ This will install the package in "developer mode".  Subsequent changes to the fi
 - `python humidity_agent`
 To run in test mode:
 - `python humidity_agent -t`
+
+
+## Running with Docker
+- `docker build . -t humidity-agent`
+- `docker run --name humidity-agent --privileged humidity-agent`
