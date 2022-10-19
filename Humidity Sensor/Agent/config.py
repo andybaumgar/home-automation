@@ -1,5 +1,5 @@
 # usbDevice = "/dev/cu.usbmodem14501"
-{"usbDevice":"/dev/ttyACM0"}
+usbDevice = "/dev/ttyACM0"
 # broker_address = "localhost"
 broker_address = "192.168.0.153"
 
