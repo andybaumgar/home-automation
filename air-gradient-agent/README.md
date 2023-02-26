@@ -1,0 +1,1 @@
+For arguino library configuration watch this video: https://www.youtube.com/watch?v=Cmr5VNALRAg
