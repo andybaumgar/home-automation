@@ -3,7 +3,7 @@ from influxdb import InfluxDBClient
 from datetime import datetime
 import json
 
-influx_client = InfluxDBClient('localhost', 8086, 'admin', 'admin', 'apartment')
+influx_client = InfluxDBClient('192.168.0.153', 8086, 'admin', 'admin', 'apartment')
 
 def celsius_to_fahrenheit(celsius):
     fahrenheit = (celsius * 9/5) + 32
