@@ -18,7 +18,7 @@ To run in test mode:
 ## Running with Docker
 - `docker build . -t humidity-agent`
 - `docker stop humidity-agent`
-- `docker rm humidity-agent`
+- `docker rm -f humidity-agent`
 - `docker run -d --name humidity-agent --privileged --network=host --restart unless-stopped humidity-agent`
 
 ## View Logs
