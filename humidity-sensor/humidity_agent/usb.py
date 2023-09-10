@@ -60,4 +60,4 @@ if __name__ == "__main__":
         },
     ]
 
-    print(get_adafruit_feather(sample_devices))
+    print(get_adafruit_feather(get_usb_devices()))
