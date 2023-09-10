@@ -1,11 +1,10 @@
 import json
 from datetime import datetime
 
-import config
 import serial
 from influxdb import InfluxDBClient
 
-from .usb import get_usb_devices
+from .usb import get_adafruit_feather, get_usb_devices
 
 
 def influxBody(measurements):
@@ -25,12 +24,10 @@ def influxBody(measurements):
 
 
 def run():
-    ser = serial.Serial(config.usbDevice, 115200)
+    device_path = get_adafruit_feather(get_usb_devices())
+    ser = serial.Serial(device_path, 115200)
 
     client = InfluxDBClient("localhost", 8086, "admin", "admin", "apartment")
-
-    # mqtt_client = mqtt.Client("P1") #create new instance
-    # mqtt_client.connect(config.broker_address) #connect to broker
 
     while 1:
         try:
@@ -38,10 +35,6 @@ def run():
             data = json.loads(ser.readline())
 
             client.write_points(influxBody(data))
-
-            # mqtt_client.publish("apartment/temperature",data.temperature)
-            # mqtt_client.publish("apartment/temperature",data["temperature"])
-            # mqtt_client.publish("apartment/humidity",data["humidity"])
 
         except Exception as e:
             print(e)
