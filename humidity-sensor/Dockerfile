@@ -2,7 +2,7 @@
 
 FROM python:3.9-slim-buster
 
-RUN sudo apt-get install usbutils
+RUN apt-get install usbutils
 
 WORKDIR /app
 
