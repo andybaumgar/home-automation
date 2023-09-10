@@ -22,3 +22,7 @@ def get_usb_devices():
 
     print(devices)
     return devices
+
+
+if __name__ == "__main__":
+    print(get_usb_devices())
