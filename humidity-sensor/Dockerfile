@@ -3,7 +3,7 @@
 FROM python:3.9-slim-buster
 
 RUN apt-get update
-RUN apt-get install usbutils
+RUN apt-get install -y usbutils
 
 WORKDIR /app
 
