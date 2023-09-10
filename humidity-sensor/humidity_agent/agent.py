@@ -2,9 +2,8 @@ import json
 from datetime import datetime
 
 import serial
+from humidity_agent.usb import get_adafruit_feather, get_usb_devices
 from influxdb import InfluxDBClient
-
-from .usb import get_adafruit_feather, get_usb_devices
 
 
 def influxBody(measurements):
