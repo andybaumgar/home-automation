@@ -1,46 +1,51 @@
-import serial
 import json
-from influxdb import InfluxDBClient
 from datetime import datetime
-import sys, os
-import paho.mqtt.client as mqtt #import the client1
+
 import config
+import serial
+from influxdb import InfluxDBClient
+
+from .usb import get_usb_devices
+
 
 def influxBody(measurements):
-	json_body = []
-	current_time = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
+    json_body = []
+    current_time = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
 
-	for key, value in measurements.items():
-		json_part = {
-			"measurement": key,
-			"time": current_time,
-			"fields": {
-				"value": value
-			}
-		}
+    for key, value in measurements.items():
+        json_part = {
+            "measurement": key,
+            "time": current_time,
+            "fields": {"value": value},
+        }
 
-		json_body.append(json_part)
+        json_body.append(json_part)
 
-	return json_body
+    return json_body
+
 
 def run():
-	ser = serial.Serial(config.usbDevice, 115200)
+    ser = serial.Serial(config.usbDevice, 115200)
 
-	client = InfluxDBClient('localhost', 8086, 'admin', 'admin', 'apartment')
+    client = InfluxDBClient("localhost", 8086, "admin", "admin", "apartment")
 
-	# mqtt_client = mqtt.Client("P1") #create new instance
-	# mqtt_client.connect(config.broker_address) #connect to broker
+    # mqtt_client = mqtt.Client("P1") #create new instance
+    # mqtt_client.connect(config.broker_address) #connect to broker
 
-	while 1 :
-		try:
-			serialData = ser.readline()
-			data = json.loads(ser.readline())
+    while 1:
+        try:
+            serialData = ser.readline()
+            data = json.loads(ser.readline())
 
-			client.write_points(influxBody(data))
+            client.write_points(influxBody(data))
 
-			# mqtt_client.publish("apartment/temperature",data.temperature)
-			# mqtt_client.publish("apartment/temperature",data["temperature"])
-			# mqtt_client.publish("apartment/humidity",data["humidity"])
+            # mqtt_client.publish("apartment/temperature",data.temperature)
+            # mqtt_client.publish("apartment/temperature",data["temperature"])
+            # mqtt_client.publish("apartment/humidity",data["humidity"])
 
-		except Exception as e:
-			print(e)
+        except Exception as e:
+            print(e)
+
+
+if __name__ == "__main__":
+    print(get_usb_devices())
