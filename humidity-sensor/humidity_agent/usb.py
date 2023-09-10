@@ -20,7 +20,7 @@ def get_usb_devices():
                 )
                 devices.append(dinfo)
 
-    print(devices)
+    # print(devices)
     return devices
 
 
