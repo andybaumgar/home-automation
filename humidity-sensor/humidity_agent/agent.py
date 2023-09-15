@@ -23,7 +23,8 @@ def influxBody(measurements):
 
 
 def run():
-    device_path = get_adafruit_feather(get_usb_devices())
+    # device_path = get_adafruit_feather(get_usb_devices())
+    device_path = r"/dev/ttyACM0"
     ser = serial.Serial(device_path, 115200)
 
     client = InfluxDBClient("localhost", 8086, "admin", "admin", "apartment")
